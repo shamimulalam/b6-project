@@ -14,3 +14,9 @@
 Route::get('/', function () {
     return view('welcome');
 });
+Route::get('admin/dashboard',function (){
+    return view('admin.dashboard');
+});
+Route::get('admin/blogs',function (){
+    return view('admin.blog');
+});
