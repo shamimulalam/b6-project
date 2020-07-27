@@ -53,22 +53,24 @@
                                 <tbody>
                                 @foreach($categories as $category)
                                     <tr>
-                                        <td>{{ $category->id }}</td>
+                                        <td>{{ $loop->iteration }}</td>
                                         <td>{{ $category->name }}</td>
                                         <td>{{ $category->description }}</td>
                                         <td>{{ $category->status }}</td>
-                                        <td>
-                                            <a class="btn btn-primary btn-xs" href="{{ route('category.edit',$category->id) }}">Edit</a>
-                                            <form action="{{ route('category.destroy',$category->id) }}" method="post">
+                                        <td class="form-inline">
+                                            <a class="btn btn-primary btn-sm mr-1" href="{{ route('category.edit',$category->id) }}">Edit</a>
+
+                                            <form class="form-inline" action="{{ route('category.destroy',$category->id) }}" method="post">
                                                 @method('delete')
                                                 @csrf
-                                                <button class="btn btn-danger btn-xs" type="submit">Delete</button>
+                                                <button class="btn btn-danger btn-sm" type="submit" onclick="return confirm('Are you confirm to delete?')">Delete</button>
                                             </form>
                                         </td>
                                     </tr>
                                 @endforeach
                                 </tbody>
                             </table>
+                                {{ $categories->render() }}
                         </div>
                         <!-- /.card-body -->
                     </div>
