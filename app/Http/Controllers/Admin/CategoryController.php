@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Category;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
@@ -14,7 +15,9 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        //
+        $data['title'] = 'List of Categories';
+        $data['categories'] = Category::orderBy('id','DESC')->get();
+        return view('admin.category.index',$data);
     }
 
     /**
@@ -36,7 +39,16 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name'      => 'required',
+            'status'    => 'required'
+        ]);
+        $category = new Category();
+        $category->name = $request->name;
+        $category->description = $request->description;
+        $category->status = $request->status;
+        $category->save();
+        return redirect()->route('category.index');
     }
 
     /**
@@ -58,7 +70,9 @@ class CategoryController extends Controller
      */
     public function edit($id)
     {
-        //
+        $data['title'] = 'Edit Category';
+        $data['category'] = Category::findOrFail($id);
+        return view('admin.category.edit',$data);
     }
 
     /**
@@ -70,7 +84,16 @@ class CategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+            'status' => 'required',
+        ]);
+        $category = Category::findOrFail($id);
+        $category->name = $request->name;
+        $category->description = $request->description;
+        $category->status = $request->status;
+        $category->save();
+        return redirect()->route('category.index');
     }
 
     /**
@@ -81,6 +104,7 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Category::destroy($id);
+        return redirect()->route('category.index');
     }
 }
