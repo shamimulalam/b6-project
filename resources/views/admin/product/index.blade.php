@@ -49,6 +49,7 @@
                                 <thead>
                                 <tr>
                                     <th>ID</th>
+                                    <th>Category Name</th>
                                     <th>Name</th>
                                     <th>Description</th>
                                     <th>Image</th>
@@ -60,6 +61,7 @@
                                 @foreach($products as $key=>$product)
                                     <tr>
                                         <td>{{ $products->firstItem() + $key }}</td>
+                                        <td>{{ $product->category->name }}</td>
                                         <td>{{ $product->name }}</td>
                                         <td>{{ $product->description }}</td>
                                         <td>
