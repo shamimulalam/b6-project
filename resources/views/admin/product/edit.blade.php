@@ -32,7 +32,7 @@
                         </div>
                         <!-- /.card-header -->
                         <!-- form start -->
-                        <form action="{{ route('product.update',$product->id) }}" method="POST">
+                        <form action="{{ route('product.update',$product->id) }}" method="POST" enctype="multipart/form-data">
                             @csrf
                             @method('put')
                             @include('admin.product._form')
