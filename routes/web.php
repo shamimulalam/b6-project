@@ -14,13 +14,17 @@
 Route::get('/', function () {
     return view('welcome');
 });
-Route::get('admin/dashboard',function (){
-    return view('admin.dashboard');
-})->name('admin.dashboard');
-Route::get('admin/blogs',function (){
-    return view('admin.blog');
+
+Route::middleware('auth')->group(function () {
+    Route::get('admin/dashboard', function () {
+        return view('admin.dashboard');
+    })->name('admin.dashboard');
+    Route::get('admin/blogs', function () {
+        return view('admin.blog');
+    });
+    Route::resource('admin/category','Admin\CategoryController');
+    Route::resource('admin/product','Admin\ProductController');
+    Route::resource('admin/user','Admin\UserController');
 });
 
-Route::resource('admin/category','Admin\CategoryController');
-Route::resource('admin/product','Admin\ProductController');
-Route::resource('admin/user','Admin\UserController');
+Auth::routes(['register'=>false]);
