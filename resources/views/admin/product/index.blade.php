@@ -53,6 +53,7 @@
                                     <th>Name</th>
                                     <th>Description</th>
                                     <th>Image</th>
+                                    <th>Is Feature ?</th>
                                     <th>Status</th>
                                     <th>Action</th>
                                 </tr>
@@ -67,6 +68,7 @@
                                         <td>
                                             <img src="{{ asset($product->image) }}" alt="" width="10%">
                                         </td>
+                                        <td>{{ $product->is_featured?'Yes':'No' }}</td>
                                         <td>{{ $product->status }}</td>
                                         <td class="form-inline">
                                             <a class="btn btn-primary btn-sm mr-1" href="{{ route('product.edit',$product->id) }}">Edit</a>

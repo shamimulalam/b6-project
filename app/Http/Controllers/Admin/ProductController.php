@@ -48,6 +48,7 @@ class ProductController extends Controller
             'status' => 'required',
             'image' => 'mimes:jpeg,png'
         ]);
+
         $product = new Product();
         $product->category_id = $request->category_id;
         $product->name = $request->name;
@@ -57,6 +58,9 @@ class ProductController extends Controller
         $product->price = $request->price;
         $product->status = $request->status;
         $product->stock = $request->stock;
+        if($request->has('is_featured')){
+            $product->is_featured = $request->is_featured;
+        }
 
         if($request->hasFile('image')){
             $image_path = $this->fileUpload($request->file('image'));
@@ -117,6 +121,11 @@ class ProductController extends Controller
         $product->price = $request->price;
         $product->status = $request->status;
         $product->stock = $request->stock;
+        if($request->has('is_featured')){
+            $product->is_featured = $request->is_featured;
+        }else{
+            $product->is_featured = 0;
+        }
         if($request->hasFile('image')){
             $image_path = $this->fileUpload($request->file('image'));
             if($product->image != null && file_exists($product->image)){
