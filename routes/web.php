@@ -11,9 +11,7 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/','Front\FrontController@home')->name('front.home');
 
 Route::middleware('auth')->group(function () {
     Route::get('admin/dashboard', function () {
