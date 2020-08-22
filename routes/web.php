@@ -12,6 +12,7 @@
 */
 
 Route::get('/','Front\FrontController@home')->name('front.home');
+Route::get('product/{id}','Front\FrontController@product_details')->name('front.product.details');
 
 Route::middleware('auth')->group(function () {
     Route::get('admin/dashboard', function () {
