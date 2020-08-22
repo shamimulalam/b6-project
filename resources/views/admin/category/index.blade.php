@@ -52,6 +52,7 @@
                                     <th>Name</th>
                                     <th>Description</th>
                                     <th>Status</th>
+                                    <th>Is Featured</th>
                                     <th>Action</th>
                                 </tr>
                                 </thead>
@@ -62,6 +63,7 @@
                                         <td>{{ $category->name }}</td>
                                         <td>{{ $category->description }}</td>
                                         <td>{{ $category->status }}</td>
+                                        <td>{{ $category->is_featured?'Yes':'No' }}</td>
                                         <td class="form-inline">
                                             <a class="btn btn-primary btn-sm mr-1" href="{{ route('category.edit',$category->id) }}">Edit</a>
 
