@@ -16,7 +16,7 @@ class CategoryController extends Controller
     public function index()
     {
         $data['title'] = 'List of Categories';
-        $data['categories'] = Category::orderBy('id','DESC')->paginate(2);
+        $data['categories'] = Category::orderBy('id','DESC')->paginate(5);
         return view('admin.category.index',$data);
     }
 
@@ -47,6 +47,14 @@ class CategoryController extends Controller
         $category->name = $request->name;
         $category->description = $request->description;
         $category->status = $request->status;
+        if($request->has('is_featured')){
+            $category->is_featured = $request->is_featured;
+        }
+
+        if($request->hasFile('image')){
+            $image_path = $this->fileUpload($request->file('image'));
+            $category->image = $image_path;
+        }
         $category->save();
         session()->flash('success','Category created successfully');
         return redirect()->route('category.index');
@@ -93,9 +101,29 @@ class CategoryController extends Controller
         $category->name = $request->name;
         $category->description = $request->description;
         $category->status = $request->status;
+        if($request->has('is_featured')){
+            $category->is_featured = $request->is_featured;
+        }else{
+            $category->is_featured = 0;
+        }
+
+        if($request->hasFile('image')){
+            $image_path = $this->fileUpload($request->file('image'));
+            if($category->image != null && file_exists($category->image)){
+                unlink($category->image);
+            }
+
+            $category->image = $image_path;
+        }
         $category->save();
         session()->flash('success','Category updated successfully');
         return redirect()->route('category.index');
+    }
+    private function fileUpload($img){
+        $path = 'images/category';
+        $file_name = rand(0000,9999).'_'.$img->getFilename().'.'.$img->getClientOriginalExtension();
+        $img->move($path,$file_name);
+        return $path.'/'.$file_name;
     }
 
     /**
