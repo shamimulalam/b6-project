@@ -15,10 +15,9 @@ class CartController extends Controller
     public function addToCart($productId){
         $product = Product::findOrFail($productId);
         $cart = session('cart');
-        if(array_key_exists($productId,$cart))
+        if(is_array($cart) && array_key_exists($productId,$cart))
         {
             $cart[$productId]['quantity'] += 1;
-
         }else {
             $cart[$productId]['quantity'] = 1;
             $cart[$productId]['name'] = $product->name;
