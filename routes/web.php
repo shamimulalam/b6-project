@@ -14,7 +14,10 @@
 Route::namespace('Front')->group(function (){
     Route::get('/','FrontController@home')->name('front.home');
     Route::get('product/{id}','FrontController@product_details')->name('front.product.details');
-    Route::get('cart','CartController@cart')->name('cart');
+    Route::get('cart','CartController@cart')->name('front.cart');
+    Route::get('checkout','CheckoutController@checkout')->name('front.checkout');
+    Route::post('checkout','CheckoutController@store')->name('front.place.order');
+    Route::get('order/success','CheckoutController@success')->name('front.order.success');
     Route::get('add-to-cart/{productId}','CartController@addToCart')->name('add.to.cart');
     Route::get('remove-from-cart/{productId}','CartController@removeFormCart')->name('remove.form.cart');
 });
