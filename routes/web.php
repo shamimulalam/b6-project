@@ -26,12 +26,12 @@ Route::middleware('auth')->namespace('Admin')->group(function () {
     Route::get('admin/dashboard', function () {
         return view('admin.dashboard');
     })->name('admin.dashboard');
-    Route::get('admin/blogs', function () {
-        return view('admin.blog');
-    });
     Route::resource('admin/category','CategoryController');
     Route::resource('admin/product','ProductController');
     Route::resource('admin/user','UserController');
+    Route::get('admin/orders','OrderController@index')->name('admin.order.list');
+    Route::get('admin/orders/{id}/show','OrderController@show')->name('admin.order.show');
+    Route::put('admin/orders/{id}/{status}','OrderController@change_status')->name('admin.order.change.status');
 });
 
 Auth::routes(['register'=>false]);
