@@ -30,6 +30,33 @@
                         </div>
                     @endif
                     <div class="card">
+                        <div class="card-body">
+                            <form>
+                                <div class="row">
+                                    <div class="col-md-5">
+                                        <input type="text" value="{{ request('client_information') }}" name="client_information" class="form-control" placeholder="Search by client information">
+                                    </div>
+                                    <div class="col-md-3">
+                                        <input type="text" value="{{ request('order_id') }}" name="order_id" class="form-control" placeholder="Search by order id">
+                                    </div>
+                                    <div class="col-md-3">
+                                        <select name="status" class="form-control">
+                                            <option value="">Search by status</option>
+                                            <option {{ (request('status') == \App\Order::STATUS_PENDING)?'selected':null }} value="{{ \App\Order::STATUS_PENDING }}">{{ \App\Order::STATUS_PENDING }}</option>
+                                            <option {{ (request('status') == \App\Order::STATUS_PROCESSING)?'selected':null }} value="{{ \App\Order::STATUS_PROCESSING }}">{{ \App\Order::STATUS_PROCESSING }}</option>
+                                            <option {{ (request('status') == \App\Order::STATUS_SHIPPED)?'selected':null }} value="{{ \App\Order::STATUS_SHIPPED }}">{{ \App\Order::STATUS_SHIPPED }}</option>
+                                            <option {{ (request('status') == \App\Order::STATUS_DELIVERED)?'selected':null }} value="{{ \App\Order::STATUS_DELIVERED }}">{{ \App\Order::STATUS_DELIVERED }}</option>
+                                            <option {{ (request('status') == \App\Order::STATUS_CANCELLED)?'selected':null }} value="{{ \App\Order::STATUS_CANCELLED }}">{{ \App\Order::STATUS_CANCELLED }}</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-1">
+                                        <button class="btn btn-secondary">Search</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="card">
                         <div class="card-header">
                             <h3 class="card-title">List</h3>
 

@@ -76,28 +76,28 @@
                             </div>
                             <div class="row">
                                 <div class="col-md-12 form-inline">
-                                    <form action="{{ route('admin.order.change.status',[$order->id,'Processing']) }}" method="post">
+                                    <form action="{{ route('admin.order.change.status',[$order->id,\App\Order::STATUS_PROCESSING]) }}" method="post">
                                         @csrf
                                         @method('PUT')
                                         <button class="btn btn-info" onclick="return confirm('Are you confirm to change status?')">
                                             Processing
                                         </button>
                                     </form>
-                                    <form action="{{ route('admin.order.change.status',[$order->id,'Shipped']) }}" method="post">
+                                    <form action="{{ route('admin.order.change.status',[$order->id,\App\Order::STATUS_SHIPPED]) }}" method="post">
                                         @csrf
                                         @method('PUT')
                                         <button class="btn btn-primary" onclick="return confirm('Are you confirm to change status?')">
                                             Shipped
                                         </button>
                                     </form>
-                                    <form action="{{ route('admin.order.change.status',[$order->id,'Delivered']) }}" method="post">
+                                    <form action="{{ route('admin.order.change.status',[$order->id,\App\Order::STATUS_DELIVERED]) }}" method="post">
                                         @csrf
                                         @method('PUT')
                                         <button class="btn btn-success" onclick="return confirm('Are you confirm to change status?')">
                                             Delivered
                                         </button>
                                     </form>
-                                    <form action="{{ route('admin.order.change.status',[$order->id,'Cancelled']) }}" method="post">
+                                    <form action="{{ route('admin.order.change.status',[$order->id,\App\Order::STATUS_CANCELLED]) }}" method="post">
                                         @csrf
                                         @method('PUT')
                                         <button class="btn btn-danger" onclick="return confirm('Are you confirm to change status?')">
