@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Mail\OrderCancelled;
 use App\Mail\OrderShipped;
 use App\Order;
 use Illuminate\Http\Request;
@@ -50,7 +51,10 @@ class OrderController extends Controller
         $order->status = $order_status;
         $order->save();
         if($order_status==Order::STATUS_SHIPPED){
-            Mail::to('admin@admin.com')->send(new OrderShipped($order));
+            Mail::to($order->email)->send(new OrderShipped($order));
+        }
+        if($order_status==Order::STATUS_CANCELLED){
+            Mail::to($order->email)->send(new OrderCancelled($order));
         }
         session()->flash('message','Order status changed successfully');
         return redirect()->back();
