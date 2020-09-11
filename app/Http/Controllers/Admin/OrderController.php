@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Mail\OrderShipped;
 use App\Order;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class OrderController extends Controller
 {
@@ -47,6 +49,9 @@ class OrderController extends Controller
         $order = Order::findOrFail($order_id);
         $order->status = $order_status;
         $order->save();
+        if($order_status==Order::STATUS_SHIPPED){
+            Mail::to('admin@admin.com')->send(new OrderShipped($order));
+        }
         session()->flash('message','Order status changed successfully');
         return redirect()->back();
     }
