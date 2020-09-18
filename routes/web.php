@@ -17,7 +17,7 @@ Route::namespace('Front')->group(function (){
     Route::get('cart','CartController@cart')->name('front.cart');
     Route::get('checkout','CheckoutController@checkout')->name('front.checkout');
     Route::post('checkout','CheckoutController@store')->name('front.place.order');
-    Route::get('order/success','CheckoutController@success')->name('front.order.success');
+    Route::get('order/status/{status}','CheckoutController@final_status')->name('front.order.status');
     Route::get('add-to-cart/{productId}','CartController@addToCart')->name('add.to.cart');
     Route::get('remove-from-cart/{productId}','CartController@removeFormCart')->name('remove.form.cart');
     Route::get('order/{id}/payment','PaymentController@index')->name('front.order.payment');

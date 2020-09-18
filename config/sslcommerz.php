@@ -20,7 +20,7 @@ return [
     ],
     'connect_from_localhost' => env("IS_LOCALHOST", true), // For Sandbox, use "true", For Live, use "false"
     'success_url' => '/payment/success',
-    'failed_url' => '/payment/fail',
+    'failed_url' => '/payment/failed',
     'cancel_url' => '/payment/cancel',
     'ipn_url' => '/payment/ipn',
 ];

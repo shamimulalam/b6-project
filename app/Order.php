@@ -14,6 +14,9 @@ class Order extends Model
 
     const PAYMENT_STATUS_PAID = 'Paid';
     const PAYMENT_STATUS_UNPAID = 'Unpaid';
+
+    const PAYMENT_METHOD_CARD = 'card';
+    const PAYMENT_METHOD_COD = 'cod';
     public function order_details(){
         return $this->hasMany(OrderDetail::class);
     }

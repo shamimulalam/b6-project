@@ -12,8 +12,15 @@ class CheckoutController extends Controller
     public function checkout(){
         return view('front.checkout');
     }
-    public function success(){
-        return view('front.success');
+    public function final_status($status){
+        if($status == 'success'){
+            $message = 'Order Placed successfully';
+        }elseif($status == 'failed'){
+            $message = 'Payment processing failed';
+        }elseif($status == 'cancel'){
+            $message = 'Payment canceled';
+        }
+        return view('front.order_status_message',compact('message'));
     }
     public function store(Request $request){
         $request->validate([
@@ -57,8 +64,8 @@ class CheckoutController extends Controller
         }
         $order->save();
         session()->remove('cart');
-        if($order->status == Order::STATUS_PENDING){
-            return redirect()->route('front.order.success');
+        if($order->status == Order::STATUS_PROCESSING){
+            return redirect()->route('front.order.status','success');
         }else{
             return redirect()->route('front.order.payment',$order->id);
         }

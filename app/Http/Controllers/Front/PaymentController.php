@@ -16,6 +16,10 @@ class PaymentController extends Controller
             }]);
         }])->findOrFail($order_id);
 
+        if($order->payment_status == Order::PAYMENT_STATUS_PAID){
+            return redirect()->route('front.order.status','success');
+        }
+
         $post_data = array();
         $post_data['total_amount'] = $order->total_amount; # You cant not pay less than 10
         $post_data['currency'] = "BDT";
@@ -64,7 +68,14 @@ class PaymentController extends Controller
         $order = Order::findOrFail($request->value_a);
         $order->status = Order::STATUS_PROCESSING;
         $order->payment_status = Order::PAYMENT_STATUS_PAID;
+        $order->payment_method = Order::PAYMENT_METHOD_CARD;
         $order->save();
-        return redirect()->route('front.order.success');
+        return redirect()->route('front.order.status','success');
+    }
+    public function failed(Request $request){
+        return redirect()->route('front.order.status','failed');
+    }
+    public function cancel(Request $request){
+        return redirect()->route('front.order.status','cancel');
     }
 }
