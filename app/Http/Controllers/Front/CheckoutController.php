@@ -39,6 +39,9 @@ class CheckoutController extends Controller
         $order->phone = $request->phone;
         $order->email = $request->email;
         $order->payment_method = $request->payment_method;
+        if($request->payment_method != 'card'){
+            $order->status = Order::STATUS_PROCESSING;
+        }
         $order->total_amount = 0;
         $order->save();
 
@@ -54,7 +57,11 @@ class CheckoutController extends Controller
         }
         $order->save();
         session()->remove('cart');
-        return redirect()->route('front.order.success');
+        if($order->status == Order::STATUS_PENDING){
+            return redirect()->route('front.order.success');
+        }else{
+            return redirect()->route('front.order.payment',$order->id);
+        }
     }
 
 }

@@ -20,6 +20,10 @@ Route::namespace('Front')->group(function (){
     Route::get('order/success','CheckoutController@success')->name('front.order.success');
     Route::get('add-to-cart/{productId}','CartController@addToCart')->name('add.to.cart');
     Route::get('remove-from-cart/{productId}','CartController@removeFormCart')->name('remove.form.cart');
+    Route::get('order/{id}/payment','PaymentController@index')->name('front.order.payment');
+    Route::post('payment/success','PaymentController@success')->name('front.order.payment.success');
+    Route::post('payment/failed','PaymentController@failed')->name('front.order.payment.failed');
+    Route::post('payment/cancel','PaymentController@cancel')->name('front.order.payment.cancel');
 });
 
 Route::middleware('auth')->namespace('Admin')->group(function () {
