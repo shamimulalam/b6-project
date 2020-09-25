@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Exports\OrdersExport;
 use App\Http\Controllers\Controller;
 use App\Mail\OrderCancelled;
 use App\Mail\OrderShipped;
 use App\Order;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
+use Maatwebsite\Excel\Facades\Excel;
 
 class OrderController extends Controller
 {
@@ -59,5 +61,11 @@ class OrderController extends Controller
         session()->flash('message','Order status changed successfully');
         return redirect()->back();
     }
-
+    public function export($query){
+        $filename = 'orders';
+        if($query == Order::STATUS_PENDING){
+            $filename = 'pending_orders';
+        }
+        return Excel::download(new OrdersExport($query),$filename.'.pdf',\Maatwebsite\Excel\Excel::DOMPDF);
+    }
 }

@@ -37,6 +37,7 @@ Route::middleware('auth')->namespace('Admin')->group(function () {
     Route::get('admin/orders','OrderController@index')->name('admin.order.list');
     Route::get('admin/orders/{id}/show','OrderController@show')->name('admin.order.show');
     Route::put('admin/orders/{id}/{status}','OrderController@change_status')->name('admin.order.change.status');
+    Route::get('admin/orders/export/{query}','OrderController@export')->name('admin.order.export');
 });
 
 Auth::routes(['register'=>false]);

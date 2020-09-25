@@ -62,11 +62,8 @@
 
                             <div class="card-tools">
                                 <div class="input-group input-group-sm" style="width: 150px;">
-                                    <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
-
-                                    <div class="input-group-append">
-                                        <button type="submit" class="btn btn-default"><i class="fas fa-search"></i></button>
-                                    </div>
+                                    <a class="btn btn-success btn-sm" href="{{ route('admin.order.export','all') }}">Export All</a>
+                                    <a class="btn btn-success btn-sm" href="{{ route('admin.order.export',\App\Order::STATUS_PENDING) }}">Export Pending</a>
                                 </div>
                             </div>
                         </div>
