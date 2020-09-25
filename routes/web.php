@@ -34,10 +34,17 @@ Route::middleware('auth')->namespace('Admin')->group(function () {
     Route::resource('admin/category','CategoryController');
     Route::resource('admin/product','ProductController');
     Route::resource('admin/user','UserController');
-    Route::get('admin/orders','OrderController@index')->name('admin.order.list');
-    Route::get('admin/orders/{id}/show','OrderController@show')->name('admin.order.show');
-    Route::put('admin/orders/{id}/{status}','OrderController@change_status')->name('admin.order.change.status');
-    Route::get('admin/orders/export/{query}','OrderController@export')->name('admin.order.export');
+
+    Route::middleware('isAdmin')->group(function (){
+        Route::get('admin/orders','OrderController@index')->name('admin.order.list');
+        Route::get('admin/orders/{id}/show','OrderController@show')->name('admin.order.show');
+        Route::put('admin/orders/{id}/{status}','OrderController@change_status')->name('admin.order.change.status');
+        Route::get('admin/orders/export/{query}','OrderController@export')->name('admin.order.export');
+    });
+    Route::get('admin/unauthorized',function (){
+        return 'Unauthorized';
+    })->name('admin.unauthorized');
+
 });
 
 Auth::routes(['register'=>false]);

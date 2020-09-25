@@ -30,6 +30,7 @@
                     </p>
                 </a>
             </li>
+            @if(auth()->user()->isAdmin)
             <li class="nav-item">
                 <a href="{{ route('admin.order.list') }}" class="nav-link  @if(request()->routeIs('admin.order.list')) active @endif">
                     <i class="nav-icon fas fa-car"></i>
@@ -38,6 +39,7 @@
                     </p>
                 </a>
             </li>
+            @endif
             <li class="nav-item has-treeview @if(request()->routeIs('category.index') || request()->routeIs('category.create') || request()->routeIs('category.edit')) menu-open @endif">
                 <a href="#" class="nav-link">
                     <i class="nav-icon fas fa-copy"></i>
